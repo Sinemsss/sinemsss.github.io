@@ -3,602 +3,165 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dev Portfolio — Bilgisayar Mühendisliği</title>
+  <title>Sinem Işık — Bilgisayar Mühendisliği</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #0a0a0f;
-      --bg2: #0f0f1a;
-      --surface: #13131f;
-      --border: #1e1e30;
-      --accent: #00e5ff;
-      --accent2: #7c3aed;
-      --accent3: #ff3e6c;
-      --text: #e8e8f0;
-      --muted: #6b6b8a;
-      --green: #00ff9d;
+      --bg: #0a0a0f; --bg2: #0f0f1a; --surface: #13131f; --border: #1e1e30;
+      --accent: #00e5ff; --accent2: #7c3aed; --accent3: #ff3e6c;
+      --text: #e8e8f0; --muted: #6b6b8a; --green: #00ff9d;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* Custom Cursor */
-    .cursor {
-      position: fixed;
-      width: 10px; height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease;
-      mix-blend-mode: screen;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1.5px solid var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transition: all 0.15s ease;
-      opacity: 0.5;
-    }
-
-    /* Noise overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1000;
-      opacity: 0.4;
-    }
-
-    /* NAVBAR */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 20px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent);
-      backdrop-filter: blur(2px);
-    }
-
-    .logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; cursor: none; }
+    .cursor { position: fixed; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s ease; mix-blend-mode: screen; }
+    .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1.5px solid var(--accent); border-radius: 50%; pointer-events: none; z-index: 9998; transition: all 0.15s ease; opacity: 0.5; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent); backdrop-filter: blur(2px); }
+    .logo { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--accent); letter-spacing: 0.1em; }
     .logo span { color: var(--accent3); }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 36px;
-    }
-
-    nav ul a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      font-family: 'JetBrains Mono', monospace;
-    }
+    nav ul { list-style: none; display: flex; gap: 36px; }
+    nav ul a { color: var(--muted); text-decoration: none; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; font-family: 'JetBrains Mono', monospace; }
     nav ul a:hover { color: var(--accent); }
-
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 0 60px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
-      top: 50%; left: 55%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 0 60px; position: relative; overflow: hidden; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%); }
+    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%); top: 50%; left: 55%; transform: translate(-50%, -50%); pointer-events: none; }
     .hero-content { position: relative; z-index: 2; max-width: 800px; }
-
-    .hero-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--accent);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .hero-tag::before {
-      content: '';
-      width: 32px; height: 1px;
-      background: var(--accent);
-    }
-
-    .hero-name {
-      font-size: clamp(52px, 7vw, 96px);
-      font-weight: 800;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      margin-bottom: 8px;
-    }
-
+    .hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
+    .hero-name { font-size: clamp(52px, 7vw, 96px); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 8px; }
     .hero-name .line1 { color: var(--text); }
-    .hero-name .line2 {
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--accent2);
-    }
-
-    .hero-desc {
-      margin-top: 28px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.8;
-      max-width: 480px;
-    }
-
+    .hero-name .line2 { color: transparent; -webkit-text-stroke: 1.5px var(--accent2); }
+    .hero-desc { margin-top: 28px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 480px; }
     .hero-desc .highlight { color: var(--accent); }
-
-    .hero-actions {
-      margin-top: 44px;
-      display: flex;
-      gap: 16px;
-    }
-
-    .btn-primary {
-      padding: 14px 32px;
-      background: var(--accent);
-      color: var(--bg);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: none;
-      cursor: none;
-      transition: all 0.2s;
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-    }
-    .btn-primary:hover {
-      background: var(--text);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      padding: 14px 32px;
-      background: transparent;
-      color: var(--muted);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      cursor: none;
-      transition: all 0.2s;
-    }
+    .hero-actions { margin-top: 44px; display: flex; gap: 16px; }
+    .btn-primary { padding: 14px 32px; background: var(--accent); color: var(--bg); font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; cursor: none; transition: all 0.2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+    .btn-primary:hover { background: var(--text); transform: translateY(-2px); }
+    .btn-secondary { padding: 14px 32px; background: transparent; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border); cursor: none; transition: all 0.2s; }
     .btn-secondary:hover { color: var(--text); border-color: var(--muted); }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 40px;
-      left: 60px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .scroll-line {
-      width: 1px; height: 60px;
-      background: linear-gradient(to bottom, var(--muted), transparent);
-      animation: scrollAnim 2s ease infinite;
-    }
-    @keyframes scrollAnim {
-      0%,100% { transform: scaleY(1); opacity: 1; }
-      50% { transform: scaleY(0.5); opacity: 0.3; }
-    }
-
-    /* ABOUT */
-    #hakkimda {
-      padding: 120px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--accent3);
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 60px;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .about-bio {
-      font-size: 16px;
-      line-height: 1.9;
-      color: var(--muted);
-    }
+    .hero-scroll { position: absolute; bottom: 40px; left: 60px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+    .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--muted), transparent); animation: scrollAnim 2s ease infinite; }
+    @keyframes scrollAnim { 0%,100% { transform: scaleY(1); opacity: 1; } 50% { transform: scaleY(0.5); opacity: 0.3; } }
+    #hakkimda { padding: 120px 60px; max-width: 1200px; margin: 0 auto; }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent3); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 16px; }
+    .section-title { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 60px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-bio { font-size: 16px; line-height: 1.9; color: var(--muted); }
     .about-bio p + p { margin-top: 20px; }
     .about-bio strong { color: var(--text); font-weight: 600; }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .skill-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 16px 20px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .skill-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-    .skill-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .skill-bar {
-      height: 2px;
-      background: var(--border);
-      position: relative;
-    }
-    .skill-fill {
-      height: 100%;
-      background: linear-gradient(to right, var(--accent), var(--accent2));
-      transition: width 1s ease;
-    }
-
-    /* BLOG */
-    #blog {
-      padding: 120px 60px;
-      background: var(--bg2);
-      position: relative;
-    }
-    #blog::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border), transparent);
-    }
-
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .skill-card { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; transition: border-color 0.2s, transform 0.2s; }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skill-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text); margin-bottom: 6px; }
+    .skill-bar { height: 2px; background: var(--border); }
+    .skill-fill { height: 100%; background: linear-gradient(to right, var(--accent), var(--accent2)); }
+    #blog { padding: 120px 60px; background: var(--bg2); position: relative; }
+    #blog::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); }
     .blog-inner { max-width: 1200px; margin: 0 auto; }
-
-    .blog-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 60px;
-    }
-
-    .blog-link {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: 0.1em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .blog-link::after { content: '→'; }
-    .blog-link:hover::after { transform: translateX(4px); }
-
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .post-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 32px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s;
-      cursor: none;
-    }
-    .post-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(to right, var(--accent), var(--accent2));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
+    .blog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+    .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .post-card { background: var(--surface); border: 1px solid var(--border); padding: 32px; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; cursor: none; }
+    .post-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
     .post-card:hover::before { transform: scaleX(1); }
-    .post-card:hover {
-      border-color: rgba(0,229,255,0.3);
-      transform: translateY(-4px);
-    }
-
-    .post-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border: 1px solid var(--border);
-      display: inline-block;
-      margin-bottom: 20px;
-    }
+    .post-card:hover { border-color: rgba(0,229,255,0.3); transform: translateY(-4px); }
+    .post-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--border); display: inline-block; margin-bottom: 20px; }
     .post-tag.ai { color: var(--accent); border-color: rgba(0,229,255,0.3); }
     .post-tag.web { color: var(--green); border-color: rgba(0,255,157,0.3); }
     .post-tag.algo { color: var(--accent2); border-color: rgba(124,58,237,0.3); }
     .post-tag.os { color: var(--accent3); border-color: rgba(255,62,108,0.3); }
+    .post-title { font-size: 18px; font-weight: 700; line-height: 1.3; margin-bottom: 16px; letter-spacing: -0.01em; }
+    .post-excerpt { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+    .post-meta { display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 20px; }
+    .post-number { position: absolute; top: 28px; right: 28px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--border); }
+    .read-more { margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.1em; display: flex; align-items: center; gap: 6px; opacity: 0; transition: opacity 0.2s; }
+    .post-card:hover .read-more { opacity: 1; }
+    .read-more::after { content: '→'; transition: transform 0.2s; }
 
-    .post-title {
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 16px;
-      letter-spacing: -0.01em;
-    }
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(5,5,10,0.92); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal { background: var(--surface); border: 1px solid var(--border); max-width: 720px; width: 90%; max-height: 85vh; overflow-y: auto; position: relative; transform: translateY(20px); transition: transform 0.3s ease; }
+    .modal-overlay.active .modal { transform: translateY(0); }
+    .modal::-webkit-scrollbar { width: 4px; }
+    .modal::-webkit-scrollbar-track { background: var(--bg); }
+    .modal::-webkit-scrollbar-thumb { background: var(--border); }
+    .modal-header { padding: 40px 48px 32px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 10; }
+    .modal-close { position: absolute; top: 24px; right: 24px; background: none; border: 1px solid var(--border); color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 18px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: none; transition: all 0.2s; }
+    .modal-close:hover { border-color: var(--accent3); color: var(--accent3); }
+    .modal-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--border); display: inline-block; margin-bottom: 16px; }
+    .modal-title { font-size: clamp(20px, 3vw, 30px); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .modal-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); display: flex; gap: 20px; }
+    .modal-body { padding: 40px 48px; }
+    .modal-body p { font-size: 15px; line-height: 1.9; color: var(--muted); margin-bottom: 24px; }
+    .modal-body p strong { color: var(--text); }
+    .modal-body h2 { font-size: 20px; font-weight: 700; color: var(--text); margin: 36px 0 16px; letter-spacing: -0.01em; }
+    .modal-body h3 { font-size: 15px; font-weight: 700; color: var(--accent); margin: 28px 0 12px; font-family: 'JetBrains Mono', monospace; }
+    .modal-body code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--bg); border: 1px solid var(--border); padding: 2px 8px; color: var(--accent); }
+    .modal-body pre { background: var(--bg); border: 1px solid var(--border); padding: 24px; margin: 20px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--green); line-height: 1.7; overflow-x: auto; }
+    .modal-body ul { padding-left: 20px; margin-bottom: 20px; }
+    .modal-body ul li { font-size: 15px; line-height: 1.9; color: var(--muted); margin-bottom: 8px; }
+    .modal-body ul li strong { color: var(--text); }
 
-    .post-excerpt {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-
-    .post-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      padding-top: 20px;
-    }
-
-    .post-number {
-      position: absolute;
-      top: 28px; right: 28px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--border);
-    }
-
-    /* PROJECTS */
-    #projeler {
-      padding: 120px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
+    #projeler { padding: 120px 60px; max-width: 1200px; margin: 0 auto; }
     .projects-list { display: flex; flex-direction: column; gap: 2px; }
-
-    .project-row {
-      border: 1px solid var(--border);
-      padding: 32px 40px;
-      display: grid;
-      grid-template-columns: 60px 1fr auto auto;
-      align-items: center;
-      gap: 40px;
-      background: var(--surface);
-      transition: all 0.2s;
-      cursor: none;
-    }
-    .project-row:hover {
-      border-color: var(--accent);
-      background: rgba(0,229,255,0.03);
-    }
-
-    .project-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .project-info h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .project-info p {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .project-tech {
-      display: flex;
-      gap: 8px;
-    }
-    .tech-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      padding: 4px 10px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .project-link {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--accent);
-      text-decoration: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
+    .project-row { border: 1px solid var(--border); padding: 32px 40px; display: grid; grid-template-columns: 60px 1fr auto auto; align-items: center; gap: 40px; background: var(--surface); transition: all 0.2s; cursor: none; }
+    .project-row:hover { border-color: var(--accent); background: rgba(0,229,255,0.03); }
+    .project-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); }
+    .project-info h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .project-info p { font-size: 13px; color: var(--muted); }
+    .project-tech { display: flex; gap: 8px; }
+    .tech-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 4px 10px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); }
+    .project-link { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0; transition: opacity 0.2s; }
     .project-row:hover .project-link { opacity: 1; }
-
-    /* CONTACT */
-    #iletisim {
-      padding: 120px 60px;
-      background: var(--bg2);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-glow {
-      position: absolute;
-      width: 500px; height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
+    #iletisim { padding: 120px 60px; background: var(--bg2); text-align: center; position: relative; overflow: hidden; }
+    .contact-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); }
     .contact-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
-
-    .contact-title {
-      font-size: clamp(40px, 6vw, 80px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      margin-bottom: 24px;
-    }
+    .contact-title { font-size: clamp(40px, 6vw, 80px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-bottom: 24px; }
     .contact-title span { color: var(--accent); }
-
-    .contact-sub {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 48px;
-      line-height: 1.7;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-    }
-
-    .contact-btn {
-      padding: 14px 28px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .contact-sub { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--muted); margin-bottom: 48px; line-height: 1.7; }
+    .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .contact-btn { padding: 14px 28px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border); color: var(--muted); transition: all 0.2s; display: flex; align-items: center; gap: 10px; }
     .contact-btn:hover { border-color: var(--accent); color: var(--accent); }
     .contact-btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 700; }
     .contact-btn.primary:hover { background: var(--text); border-color: var(--text); color: var(--bg); }
-
-    /* FOOTER */
-    footer {
-      padding: 32px 60px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    footer p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    footer { padding: 32px 60px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     .hero-tag { animation: fadeUp 0.6s ease both; }
     .hero-name { animation: fadeUp 0.6s ease 0.1s both; }
     .hero-desc { animation: fadeUp 0.6s ease 0.2s both; }
     .hero-actions { animation: fadeUp 0.6s ease 0.3s both; }
-
-    /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      nav ul { display: none; }
+      nav { padding: 20px 24px; } nav ul { display: none; }
       #hero, #hakkimda, #blog, #projeler, #iletisim { padding: 80px 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .posts-grid { grid-template-columns: 1fr; }
       .project-row { grid-template-columns: 1fr; gap: 16px; }
       .project-num, .project-link { display: none; }
       footer { flex-direction: column; gap: 12px; text-align: center; }
+      .modal-header, .modal-body { padding: 28px 24px; }
     }
   </style>
 </head>
 <body>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- NAV -->
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <button class="modal-close" id="modalClose">✕</button>
+        <span class="modal-tag" id="modalTag"></span>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
   <nav>
-    <div class="logo">_<span>dev</span>.portfolio</div>
+    <div class="logo">_<span>sinem</span>.dev</div>
     <ul>
       <li><a href="#hakkimda">Hakkımda</a></li>
       <li><a href="#blog">Blog</a></li>
@@ -607,19 +170,18 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
   <section id="hero">
     <div class="hero-grid"></div>
     <div class="hero-glow"></div>
     <div class="hero-content">
-      <div class="hero-tag">Bilgisayar Mühendisliği Öğrencisi</div>
+      <div class="hero-tag">Bilgisayar Mühendisliği · 3. Sınıf</div>
       <h1 class="hero-name">
-        <div class="line1">Adın</div>
-        <div class="line2">Soyadın</div>
+        <div class="line1">Sinem</div>
+        <div class="line2">Işık</div>
       </h1>
       <p class="hero-desc">
-        <span class="highlight">// Yazılım geliştirici & teknoloji meraklısı</span><br/>
-        Yapay zeka, web teknolojileri ve sistem programlama üzerine yazıyor,
+        <span class="highlight">// Yazılım geliştirici & veri topluluğu başkanı</span><br/>
+        Yapay zeka, veri bilimi ve web teknolojileri üzerine yazıyor,
         öğreniyor ve üretiyorum. Her satır kod bir düşünce.
       </p>
       <div class="hero-actions">
@@ -627,62 +189,29 @@
         <a href="#projeler" class="btn-secondary">Projelere Bak</a>
       </div>
     </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      Scroll
-    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
   </section>
 
-  <!-- ABOUT -->
   <section id="hakkimda">
     <div class="section-label">01 — Hakkımda</div>
     <h2 class="section-title">Ben kimim?</h2>
     <div class="about-grid">
       <div class="about-bio">
-        <p>
-          Merhaba! Ben <strong>Adın Soyadın</strong>, [Üniversite Adı] Bilgisayar Mühendisliği bölümünde okuyorum.
-          Yazılım geliştirme tutkusu ile teknolojiyi anlamlandırmaya çalışıyorum.
-        </p>
-        <p>
-          Özellikle <strong>yapay zeka, makine öğrenmesi</strong> ve <strong>web teknolojileri</strong> alanında kendimi
-          geliştiriyorum. Öğrendiklerimi bu blogda paylaşmak, hem kendi öğrenme sürecimi pekiştiriyor
-          hem de topluluğa katkı sağlıyor.
-        </p>
-        <p>
-          Boş zamanlarımda açık kaynak projelere katkıda bulunuyor, teknoloji podcast'leri dinliyor
-          ve <strong>yeni programlama dilleri</strong> keşfediyorum.
-        </p>
+        <p>Merhaba! Ben <strong>Sinem Işık</strong>, Bilgisayar Mühendisliği 3. sınıf öğrencisiyim. Yazılım geliştirme tutkusu ile teknolojiyi anlamlandırmaya çalışıyorum.</p>
+        <p>Üniversitemde <strong>Veri Topluluğu Başkanı</strong> olarak görev yapıyorum. Topluluğumuzla birlikte veri bilimi, yapay zeka ve makine öğrenmesi etkinlikleri düzenliyor, öğrencileri bu alanlara yönlendiriyoruz.</p>
+        <p>Özellikle <strong>veri bilimi ve makine öğrenmesi</strong> alanında kendimi geliştiriyorum. Öğrendiklerimi bu blogda paylaşmak hem kendi öğrenme sürecimi pekiştiriyor hem de topluluğa katkı sağlıyor.</p>
       </div>
       <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-name">Python</div>
-          <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-name">JavaScript</div>
-          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-name">C / C++</div>
-          <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-name">React</div>
-          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-name">Machine Learning</div>
-          <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-name">Linux / Git</div>
-          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-        </div>
+        <div class="skill-card"><div class="skill-name">Python</div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+        <div class="skill-card"><div class="skill-name">Machine Learning</div><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
+        <div class="skill-card"><div class="skill-name">JavaScript</div><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+        <div class="skill-card"><div class="skill-name">C / C++</div><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+        <div class="skill-card"><div class="skill-name">Veri Analizi</div><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+        <div class="skill-card"><div class="skill-name">Linux / Git</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
       </div>
     </div>
   </section>
 
-  <!-- BLOG -->
   <section id="blog">
     <div class="blog-inner">
       <div class="blog-header">
@@ -690,181 +219,306 @@
           <div class="section-label">02 — Blog</div>
           <h2 class="section-title">Son Yazılar</h2>
         </div>
-        <a href="#" class="blog-link">Tüm yazılar</a>
       </div>
       <div class="posts-grid">
-
-        <div class="post-card">
+        <div class="post-card" onclick="openPost(0)">
           <span class="post-number">01</span>
           <span class="post-tag ai">Yapay Zeka</span>
           <h3 class="post-title">Transformer Mimarisi: Dikkat Mekanizması Nasıl Çalışır?</h3>
           <p class="post-excerpt">ChatGPT'den BERT'e kadar modern dil modellerinin temelini oluşturan dikkat mekanizmasını sıfırdan anlamaya çalışıyoruz.</p>
-          <div class="post-meta">
-            <span>15 Şubat 2026</span>
-            <span>8 dk okuma</span>
-          </div>
+          <div class="post-meta"><span>15 Şubat 2026</span><span>8 dk okuma</span></div>
+          <div class="read-more">Devamını oku</div>
         </div>
-
-        <div class="post-card">
+        <div class="post-card" onclick="openPost(1)">
           <span class="post-number">02</span>
           <span class="post-tag web">Web Dev</span>
           <h3 class="post-title">React 19 ile Gelen Yenilikler ve Server Components</h3>
           <p class="post-excerpt">React'in en büyük güncellemesi neler getirdi? Server Components gerçekten her şeyi değiştirecek mi? Pratik örneklerle inceliyoruz.</p>
-          <div class="post-meta">
-            <span>8 Şubat 2026</span>
-            <span>6 dk okuma</span>
-          </div>
+          <div class="post-meta"><span>8 Şubat 2026</span><span>6 dk okuma</span></div>
+          <div class="read-more">Devamını oku</div>
         </div>
-
-        <div class="post-card">
+        <div class="post-card" onclick="openPost(2)">
           <span class="post-number">03</span>
           <span class="post-tag algo">Algoritmalar</span>
           <h3 class="post-title">Dinamik Programlama: Karmaşık Problemleri Parçalara Bölmek</h3>
           <p class="post-excerpt">DP problemlerini çözmek için kullandığım düşünce çerçevesi ve memoization ile tabulation arasındaki farklar.</p>
-          <div class="post-meta">
-            <span>1 Şubat 2026</span>
-            <span>10 dk okuma</span>
-          </div>
+          <div class="post-meta"><span>1 Şubat 2026</span><span>10 dk okuma</span></div>
+          <div class="read-more">Devamını oku</div>
         </div>
-
-        <div class="post-card">
+        <div class="post-card" onclick="openPost(3)">
           <span class="post-number">04</span>
-          <span class="post-tag os">İşletim Sistemi</span>
-          <h3 class="post-title">Linux Kernel: Process Scheduling Nasıl Yönetilir?</h3>
-          <p class="post-excerpt">CFS (Completely Fair Scheduler) algoritması ve Linux'un process yönetiminin arka planında neler döndüğünü keşfediyoruz.</p>
-          <div class="post-meta">
-            <span>22 Ocak 2026</span>
-            <span>12 dk okuma</span>
-          </div>
+          <span class="post-tag ai">Veri Bilimi</span>
+          <h3 class="post-title">Veri Bilimcinin Araç Kutusu: Pandas'tan NumPy'a</h3>
+          <p class="post-excerpt">Veri analizinde en çok kullandığım Python kütüphaneleri, pratik örnekler ve sık yapılan hatalar.</p>
+          <div class="post-meta"><span>22 Ocak 2026</span><span>12 dk okuma</span></div>
+          <div class="read-more">Devamını oku</div>
         </div>
-
-        <div class="post-card">
+        <div class="post-card" onclick="openPost(4)">
           <span class="post-number">05</span>
-          <span class="post-tag ai">Yapay Zeka</span>
+          <span class="post-tag algo">Algoritmalar</span>
           <h3 class="post-title">Reinforcement Learning ile Atari Oynayan Bir Agent Yazmak</h3>
           <p class="post-excerpt">Q-Learning algoritmasından DQN'e yolculuk. Kendi oyun agentımı sıfırdan yazdığımda öğrendiklerim.</p>
-          <div class="post-meta">
-            <span>15 Ocak 2026</span>
-            <span>14 dk okuma</span>
-          </div>
+          <div class="post-meta"><span>15 Ocak 2026</span><span>14 dk okuma</span></div>
+          <div class="read-more">Devamını oku</div>
         </div>
-
-        <div class="post-card">
+        <div class="post-card" onclick="openPost(5)">
           <span class="post-number">06</span>
-          <span class="post-tag web">Web Dev</span>
-          <h3 class="post-title">WebAssembly ile Tarayıcıda Yüksek Performanslı Hesaplama</h3>
-          <p class="post-excerpt">JavaScript'in performans sınırlarını aşmak için WASM'ı nasıl kullanabiliriz? Rust ile derlediğim ilk WASM modülü.</p>
-          <div class="post-meta">
-            <span>7 Ocak 2026</span>
-            <span>9 dk okuma</span>
-          </div>
+          <span class="post-tag os">Sistem</span>
+          <h3 class="post-title">Linux Kernel: Process Scheduling Nasıl Yönetilir?</h3>
+          <p class="post-excerpt">CFS (Completely Fair Scheduler) algoritması ve Linux'un process yönetiminin arka planında neler döndüğünü keşfediyoruz.</p>
+          <div class="post-meta"><span>7 Ocak 2026</span><span>9 dk okuma</span></div>
+          <div class="read-more">Devamını oku</div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projeler">
     <div class="section-label">03 — Projeler</div>
     <h2 class="section-title">Ne Yaptım?</h2>
     <div class="projects-list">
-
       <div class="project-row">
         <span class="project-num">001</span>
-        <div class="project-info">
-          <h3>NeuralNote</h3>
-          <p>LLM destekli, not alma ve özetleme uygulaması. Ders notlarını otomatik kategorize eder.</p>
-        </div>
-        <div class="project-tech">
-          <span class="tech-badge">Python</span>
-          <span class="tech-badge">FastAPI</span>
-          <span class="tech-badge">React</span>
-        </div>
+        <div class="project-info"><h3>NeuralNote</h3><p>LLM destekli, not alma ve özetleme uygulaması. Ders notlarını otomatik kategorize eder.</p></div>
+        <div class="project-tech"><span class="tech-badge">Python</span><span class="tech-badge">FastAPI</span><span class="tech-badge">React</span></div>
         <a href="#" class="project-link">GitHub →</a>
       </div>
-
       <div class="project-row">
         <span class="project-num">002</span>
-        <div class="project-info">
-          <h3>AlgoVisual</h3>
-          <p>Sıralama ve arama algoritmalarını görselleştiren interaktif web uygulaması.</p>
-        </div>
-        <div class="project-tech">
-          <span class="tech-badge">JavaScript</span>
-          <span class="tech-badge">D3.js</span>
-          <span class="tech-badge">CSS</span>
-        </div>
+        <div class="project-info"><h3>DataViz Dashboard</h3><p>Veri topluluğu etkinlikleri için katılım ve büyüme verilerini görselleştiren analitik panel.</p></div>
+        <div class="project-tech"><span class="tech-badge">Python</span><span class="tech-badge">Plotly</span><span class="tech-badge">Pandas</span></div>
         <a href="#" class="project-link">GitHub →</a>
       </div>
-
       <div class="project-row">
         <span class="project-num">003</span>
-        <div class="project-info">
-          <h3>MiniOS</h3>
-          <p>C ile yazılmış, basit process scheduling ve bellek yönetimi içeren eğitici işletim sistemi çekirdeği.</p>
-        </div>
-        <div class="project-tech">
-          <span class="tech-badge">C</span>
-          <span class="tech-badge">Assembly</span>
-          <span class="tech-badge">QEMU</span>
-        </div>
+        <div class="project-info"><h3>AlgoVisual</h3><p>Sıralama ve arama algoritmalarını görselleştiren interaktif web uygulaması.</p></div>
+        <div class="project-tech"><span class="tech-badge">JavaScript</span><span class="tech-badge">D3.js</span><span class="tech-badge">CSS</span></div>
         <a href="#" class="project-link">GitHub →</a>
       </div>
-
       <div class="project-row">
         <span class="project-num">004</span>
-        <div class="project-info">
-          <h3>StockML</h3>
-          <p>LSTM ağları ile hisse senedi fiyat tahmini. Veri toplama, işleme ve model eğitimi pipeline'ı.</p>
-        </div>
-        <div class="project-tech">
-          <span class="tech-badge">Python</span>
-          <span class="tech-badge">TensorFlow</span>
-          <span class="tech-badge">Pandas</span>
-        </div>
+        <div class="project-info"><h3>StockML</h3><p>LSTM ağları ile hisse senedi fiyat tahmini. Veri toplama, işleme ve model eğitimi pipeline'ı.</p></div>
+        <div class="project-tech"><span class="tech-badge">Python</span><span class="tech-badge">TensorFlow</span><span class="tech-badge">Pandas</span></div>
         <a href="#" class="project-link">GitHub →</a>
       </div>
-
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="iletisim">
     <div class="contact-glow"></div>
     <div class="contact-inner">
       <div class="section-label">04 — İletişim</div>
       <h2 class="contact-title">Konuşalım<span>.</span></h2>
-      <p class="contact-sub">
-        Bir proje fikrin mi var? İşbirliği yapmak mı istiyorsun?<br/>
-        Veya sadece teknoloji hakkında sohbet etmek mi? Her zaman buradayım.
-      </p>
+      <p class="contact-sub">Bir proje fikrin mi var? İşbirliği yapmak mı istiyorsun?<br/>Veya sadece teknoloji hakkında sohbet etmek mi? Her zaman buradayım.</p>
       <div class="contact-links">
-        <a href="mailto:email@example.com" class="contact-btn primary">✉ Mail Gönder</a>
+        <a href="mailto:senim@email.com" class="contact-btn primary">✉ Mail Gönder</a>
         <a href="https://github.com" target="_blank" class="contact-btn">⌥ GitHub</a>
         <a href="https://linkedin.com" target="_blank" class="contact-btn">in LinkedIn</a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
-    <p>© 2026 Adın Soyadın — Tüm haklar saklıdır.</p>
-    <p>Bilgisayar Mühendisliği Öğrencisi · Yazılımcı · Yazar</p>
+    <p>© 2026 Sinem Işık — Tüm haklar saklıdır.</p>
+    <p>Bilgisayar Müh. Öğrencisi · Veri Topluluğu Başkanı · Yazılımcı</p>
   </footer>
 
   <script>
-    // Cursor
+    const posts = [
+      {
+        tag: "Yapay Zeka", tagClass: "ai",
+        title: "Transformer Mimarisi: Dikkat Mekanizması Nasıl Çalışır?",
+        date: "15 Şubat 2026", readTime: "8 dk okuma",
+        body: `<p>2017 yılında yayınlanan <strong>"Attention Is All You Need"</strong> makalesi, yapay zeka dünyasında bir devrim yarattı. Bu makalede önerilen Transformer mimarisi, bugün kullandığımız ChatGPT, BERT, GPT-4 gibi tüm büyük dil modellerinin temelini oluşturuyor.</p>
+          <h2>Önce: RNN'lerin Sorunu Neydi?</h2>
+          <p>Transformer'dan önce dizi verilerini işlemek için <strong>RNN (Recurrent Neural Networks)</strong> kullanılıyordu. Sorun şuydu: uzun cümleler söz konusu olduğunda, cümlenin başındaki bilgi sona gelindiğinde "unutuluyordu". Bu probleme <em>vanishing gradient</em> deniyor.</p>
+          <h2>Dikkat Mekanizması (Self-Attention) Nedir?</h2>
+          <p>Transformer, cümledeki her kelimeyi diğer tüm kelimelerle <strong>aynı anda</strong> ilişkilendirir. Örneğin "Bankaya gittim, sıra bekliyordum" cümlesinde "banka" kelimesi burada finansal bir kurum mu yoksa nehir kıyısı mı? Model, "sıra" ve "bekliyordum" kelimelerine yüksek dikkat vererek doğru anlamı çıkarır.</p>
+          <h3>Matematiksel Olarak:</h3>
+          <pre>Attention(Q, K, V) = softmax(QKᵀ / √dₖ) × V
+
+Q = Query (sorgu)
+K = Key (anahtar)
+V = Value (değer)
+dₖ = key vektörünün boyutu</pre>
+          <h2>Multi-Head Attention</h2>
+          <p>Transformer tek bir dikkat mekanizması yerine <strong>birden fazla "kafa" (head)</strong> kullanır. Her kafa, cümledeki farklı ilişkilere odaklanır.</p>
+          <h2>Positional Encoding</h2>
+          <p>Transformer tüm kelimeleri paralel işlediği için kelime sırası bilgisini özel bir kodlama ile eklemek gerekir. Sinüs ve kosinüs fonksiyonları kullanılarak her pozisyona özgü bir vektör oluşturulur.</p>
+          <h2>Sonuç</h2>
+          <p>Transformer mimarisi; paralel işleme kapasitesi, uzun mesafeli bağımlılıkları yakalayabilmesi ve ölçeklenebilirliği sayesinde bugünün yapay zeka çağını mümkün kıldı.</p>`
+      },
+      {
+        tag: "Web Dev", tagClass: "web",
+        title: "React 19 ile Gelen Yenilikler ve Server Components",
+        date: "8 Şubat 2026", readTime: "6 dk okuma",
+        body: `<p>React 19, uzun süredir beklenen özelliklerle geldi. Bu yazıda en önemli değişiklikleri inceliyoruz.</p>
+          <h2>Actions: Async İşlemler Artık Daha Kolay</h2>
+          <p>React 19 ile <strong>Actions</strong> konsepti geldi. Form gönderme ve asenkron state güncellemeleri artık çok daha temiz yazılabiliyor.</p>
+          <pre>async function updateName(formData) {
+  await updateUserAPI(formData.get('name'));
+}
+
+function MyForm() {
+  return (
+    &lt;form action={updateName}&gt;
+      &lt;input name="name" /&gt;
+      &lt;button type="submit"&gt;Güncelle&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</pre>
+          <h2>useActionState Hook</h2>
+          <p>Form işlemlerinin durumunu yönetmek için yeni <code>useActionState</code> hook'u geldi. Pending state, error handling ve optimistic updates artık tek bir hook ile yönetiliyor.</p>
+          <h2>Server Components Nedir?</h2>
+          <p><strong>Server Components</strong>, bileşenlerin sunucuda render edilmesi konsepti. Bu sayede bundle boyutu küçülüyor, veritabanına direkt erişim mümkün oluyor ve SEO iyileşiyor.</p>
+          <h2>Sonuç</h2>
+          <p>React 19 özellikle form yönetimi ve veri fetch işlemlerini büyük ölçüde sadeleştirdi. Server Components ile birlikte Next.js ekosistemi çok daha güçlü bir hal aldı.</p>`
+      },
+      {
+        tag: "Algoritmalar", tagClass: "algo",
+        title: "Dinamik Programlama: Karmaşık Problemleri Parçalara Bölmek",
+        date: "1 Şubat 2026", readTime: "10 dk okuma",
+        body: `<p>Dinamik Programlama (DP), özünde çok basit bir fikre dayanan güçlü bir algoritma tekniğidir: <strong>aynı problemi tekrar tekrar çözme, sonucu sakla ve yeniden kullan.</strong></p>
+          <h2>DP'nin İki Temel Koşulu</h2>
+          <ul>
+            <li><strong>Optimal Alt Yapı:</strong> Problemin optimum çözümü, alt problemlerin optimum çözümlerinden oluşur.</li>
+            <li><strong>Örtüşen Alt Problemler:</strong> Aynı alt problemler tekrar tekrar karşımıza çıkar.</li>
+          </ul>
+          <h2>Fibonacci: Klasik Örnek</h2>
+          <pre># Memoization (Top-Down)
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n-1) + fib(n-2)
+
+# Tabulation (Bottom-Up)
+def fib_dp(n):
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    for i in range(2, n + 1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]</pre>
+          <h2>Memoization vs Tabulation</h2>
+          <p><strong>Memoization (Top-Down):</strong> Recursive yaklaşım, sonuçları cache'e alır. Daha sezgisel.</p>
+          <p><strong>Tabulation (Bottom-Up):</strong> Iterative yaklaşım. Stack overflow riski yok, genellikle daha hızlı.</p>
+          <h2>Klasik DP Problemleri</h2>
+          <ul>
+            <li><strong>Knapsack:</strong> Sınırlı kapasitede maksimum değer</li>
+            <li><strong>LCS:</strong> En uzun ortak alt dizi</li>
+            <li><strong>Coin Change:</strong> Minimum para üstü sayısı</li>
+            <li><strong>Edit Distance:</strong> İki string arasındaki minimum düzenleme</li>
+          </ul>`
+      },
+      {
+        tag: "Veri Bilimi", tagClass: "ai",
+        title: "Veri Bilimcinin Araç Kutusu: Pandas'tan NumPy'a",
+        date: "22 Ocak 2026", readTime: "12 dk okuma",
+        body: `<p>Veri topluluğumuzda yeni başlayanlara en çok sorduğum soru: <em>"Nereden başlayacağım?"</em> Cevabım hep aynı: <strong>Pandas ve NumPy.</strong></p>
+          <h2>NumPy: Sayısal Hesaplama</h2>
+          <pre>import numpy as np
+
+a = np.array([1, 2, 3, 4, 5])
+print(a * 2)      # [2 4 6 8 10]
+print(a.mean())   # 3.0
+print(a.std())    # 1.41...
+
+A = np.random.rand(3, 4)
+B = np.random.rand(4, 2)
+C = A @ B  # 3x2 matris çarpımı</pre>
+          <h2>Pandas: Tablo Verisi</h2>
+          <pre>import pandas as pd
+
+df = pd.read_csv('data.csv')
+print(df.shape)           # (satır, sütun)
+print(df.describe())      # istatistikler
+print(df.isnull().sum())  # eksik değerler
+
+gencler = df[df['yas'] < 30]
+df.groupby('sehir')['maas'].mean()</pre>
+          <h2>Sık Yapılan Hatalar</h2>
+          <ul>
+            <li><strong>SettingWithCopyWarning:</strong> Slice üzerinde değişiklik yerine <code>.copy()</code> kullanın</li>
+            <li><strong>Döngü kullanmak:</strong> <code>apply()</code> her zaman daha hızlı</li>
+            <li><strong>Eksik veriyi görmezden gelmek:</strong> <code>dropna()</code> veya <code>fillna()</code> ile handle edin</li>
+          </ul>
+          <h2>Veri Topluluğumuzda Ne Yapıyoruz?</h2>
+          <p>Her dönem bu kütüphaneleri gerçek veri setleriyle öğrettiğimiz workshop'lar düzenliyoruz. Kaggle yarışmalarına birlikte katılıyoruz!</p>`
+      },
+      {
+        tag: "Algoritmalar", tagClass: "algo",
+        title: "Reinforcement Learning ile Atari Oynayan Bir Agent Yazmak",
+        date: "15 Ocak 2026", readTime: "14 dk okuma",
+        body: `<p>Makine öğrenmesinde en heyecan verici alan: <strong>Pekiştirmeli Öğrenme (Reinforcement Learning)</strong>. Bir ajan, deneme yanılma yoluyla ödülleri maksimize etmeyi öğreniyor.</p>
+          <h2>Temel Kavramlar</h2>
+          <ul>
+            <li><strong>Agent:</strong> Kararlar veren yapı (modelimiz)</li>
+            <li><strong>Environment:</strong> Ajanın ortamı (Atari oyunu)</li>
+            <li><strong>State:</strong> Ortamın durumu (ekran pikselleri)</li>
+            <li><strong>Action:</strong> Yapılabilecek eylemler (sol, sağ, ateş)</li>
+            <li><strong>Reward:</strong> Aksiyondan alınan ödül/ceza</li>
+          </ul>
+          <h2>Q-Learning</h2>
+          <pre>Q(s, a) ← Q(s, a) + α [r + γ max Q(s', a') - Q(s, a)]
+
+α = öğrenme oranı
+γ = discount factor
+r = anlık ödül</pre>
+          <h2>DQN: Deep Q-Network</h2>
+          <p>Atari'de durum uzayı çok büyük olduğu için Q tablosu tutmak imkânsız. DeepMind'ın DQN'i, Q fonksiyonunu sinir ağı ile yaklaştırıyor. İki kritik teknik: <strong>Experience Replay</strong> ve <strong>Target Network</strong>.</p>
+          <h2>Sonuçlar</h2>
+          <p>Birkaç saatlik eğitim sonunda ajanım Space Invaders'ta ortalama insanı geçti! Başlamak isteyenler için <strong>OpenAI Gym</strong> ve <strong>Stable Baselines3</strong>'ü şiddetle tavsiye ederim.</p>`
+      },
+      {
+        tag: "Sistem", tagClass: "os",
+        title: "Linux Kernel: Process Scheduling Nasıl Yönetilir?",
+        date: "7 Ocak 2026", readTime: "9 dk okuma",
+        body: `<p>Bilgisayarınızda aynı anda onlarca program çalışıyor. Peki hangi program ne zaman CPU kullanacak? Bu soruyu <strong>Linux scheduler'ı</strong> cevaplıyor.</p>
+          <h2>CFS: Completely Fair Scheduler</h2>
+          <p>Linux 2.6.23 ile gelen CFS, her process'e "sanal zaman" (virtual runtime) kullanarak CPU zamanını dağıtır. Fikir: <em>en az çalışan process, bir sonraki çalışmayı hak eder.</em></p>
+          <pre>vruntime += çalışma_süresi × (1024 / process_ağırlığı)
+
+# Düşük öncelikli → vruntime hızlı artar
+# Yüksek öncelikli → vruntime yavaş artar</pre>
+          <h2>Red-Black Tree</h2>
+          <p>CFS, tüm runnable process'leri <strong>kırmızı-siyah ağaç</strong> veri yapısında saklar. En soldaki düğüm her zaman en düşük vruntime'a sahip process — bir sonraki çalışacak olan. Seçim O(log n) zamanda yapılır.</p>
+          <h2>Nice Values</h2>
+          <p><code>nice</code> komutu ile -20 ile +19 arasında öncelik verilebilir. -20 en yüksek öncelik, +19 en düşük.</p>
+          <h2>Sonuç</h2>
+          <p>Linux kernel kaynak kodunu okumak bu kavramların ne kadar zarif implement edildiğini gösteriyor. Merak edenlere <code>kernel/sched/fair.c</code> dosyasını öneririm.</p>`
+      }
+    ];
+
+    function openPost(index) {
+      const post = posts[index];
+      document.getElementById('modalTag').textContent = post.tag;
+      document.getElementById('modalTag').className = 'modal-tag ' + post.tagClass;
+      document.getElementById('modalTitle').textContent = post.title;
+      document.getElementById('modalMeta').innerHTML = `<span>${post.date}</span><span>${post.readTime}</span><span>Sinem Işık</span>`;
+      document.getElementById('modalBody').innerHTML = post.body;
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePost() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closePost);
+    document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closePost(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePost(); });
+
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
     let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-
     document.addEventListener('mousemove', e => {
       mouseX = e.clientX; mouseY = e.clientY;
       cursor.style.left = mouseX - 5 + 'px';
       cursor.style.top = mouseY - 5 + 'px';
     });
-
     function animateRing() {
       ringX += (mouseX - ringX - 18) * 0.12;
       ringY += (mouseY - ringY - 18) * 0.12;
@@ -873,35 +527,18 @@
       requestAnimationFrame(animateRing);
     }
     animateRing();
-
     document.querySelectorAll('a, button, .post-card, .project-row, .skill-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'scale(2.5)';
-        ring.style.transform = 'scale(1.4)';
-        ring.style.opacity = '0.8';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'scale(1)';
-        ring.style.transform = 'scale(1)';
-        ring.style.opacity = '0.5';
-      });
+      el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'scale(1.4)'; ring.style.opacity = '0.8'; });
+      el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; ring.style.opacity = '0.5'; });
     });
-
-    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animation = 'fadeUp 0.6s ease forwards';
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.animation = 'fadeUp 0.6s ease forwards'; });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.post-card, .project-row, .skill-card').forEach((el, i) => {
       el.style.opacity = '0';
       el.style.animationDelay = (i * 0.08) + 's';
       observer.observe(el);
     });
   </script>
-
 </body>
 </html>
